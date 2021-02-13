@@ -1,0 +1,7 @@
+type UploadImagesResponse {
+    success: Boolean!
+}
+
+type Mutation {
+    uploadImages(images: [Upload]!): UploadImagesResponse
+}

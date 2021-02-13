@@ -1,0 +1,7 @@
+interface DefaultRequestResponse {
+	success: Boolean!
+}
+
+type SuccessfulResponse implements DefaultRequestResponse {
+	success: Boolean!
+}

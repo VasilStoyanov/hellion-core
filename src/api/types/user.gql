@@ -1,0 +1,60 @@
+input CreateUserInput {
+	username: String!
+	email: String!
+	password: String!
+	firstName: String!
+	lastName: String!
+	roles: [UserRoles]
+}
+
+input UserCredentialsInput {
+	email: String!
+	password: String!
+}
+
+type CreatedUser {
+	id: ID!
+}
+
+type CreateUserError {
+	message: String!
+}
+
+type LoginError {
+	message: String!
+}
+
+enum UserRoles {
+	ADMIN
+	MODERATOR
+}
+
+type Query {
+	userRoles: [UserRoles]
+}
+
+input RegisterUserInput {
+	email: String!
+	password: String!
+	firstName: String!
+	lastName: String!
+}
+
+input ChangeUserPasswordInput {
+	password: String!
+	newPassword: String!
+}
+
+
+type Mutation {
+	registerUser(user: RegisterUserInput!): SuccessfulResponse
+	createUser(user: CreateUserInput!): CreatedUser
+	login(credentials: UserCredentialsInput): JWTToken
+	changePassword(
+	changeUserPasswordParams: ChangeUserPasswordInput
+	): SuccessfulResponse
+	confirmEmail(emailConfirmationUuid: String): SuccessfulResponse
+	subscription(subscribe: Boolean): SuccessfulResponse
+	resetPassword(restorationEmail: String!): SuccessfulResponse
+	confirmResetPassword(restorePasswordUUID: String!, newPassword: String!): SuccessfulResponse
+}
