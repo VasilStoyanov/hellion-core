@@ -1,17 +1,25 @@
+export interface ProcessEnv {
+  [key: string]: string | undefined
+}
+
+import express from 'express';
+import { join } from 'path';
+import { ApolloServer } from 'apollo-server-express';
+import { fileLoader, mergeResolvers, mergeTypes } from 'merge-graphql-schemas';
+import handleError from './helpers/errorsMapper';
+import defaultObserver from './helpers/defaultObserver';
+import queryConfigModule from '../config/queries';
+import { MUTATION_NAMES } from '../config/mutations';
+
+const { PORT, NODE_ENV }: ProcessEnv = process.env;
+
+console.log('-> neshtosi ->');
+console.log(queryConfigModule);
+console.log('<<< neshtosi');
+
+//const { name, age }: { name: string; age: number } = body.value
+
 // (async () => {
-//   const express = require("express");
-//   const { join } = require("path");
-//   const { ApolloServer } = require("apollo-server-express");
-//   const {
-//     fileLoader,
-//     mergeResolvers,
-//     mergeTypes,
-//   } = require("merge-graphql-schemas");
-//   const { PORT, NODE_ENV: workingEnvironment } = process.env;
-//   const handleError = require("./helpers/errorsMapper");
-//   const defaultObserver = require("./helpers/defaultObserver");
-//   const { QUERY_NAMES } = require("../config/queries");
-//   const { MUTATION_NAMES } = require("../config/mutations/");
 
 //   const {
 //     handleQuery,
@@ -102,13 +110,3 @@
 //       console.info(`> GraphQL Playground: http://localhost:${PORT}/graphql`);
 //   });
 // })();
-import express from 'express';
-
-const app = express();
-const port = 3000;
-app.get('/', (req, res) => {
-  res.send('The sedulous hyena ate the antelope!');
-});
-app.listen(port, () => {
-  return console.log(`server is listening on ${port}`);
-});
