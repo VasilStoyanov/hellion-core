@@ -8,14 +8,10 @@ import { ApolloServer } from 'apollo-server-express';
 import { fileLoader, mergeResolvers, mergeTypes } from 'merge-graphql-schemas';
 import handleError from './helpers/errorsMapper';
 import defaultObserver from './helpers/defaultObserver';
-import queryConfigModule from '../config/queries';
-import { MUTATION_NAMES } from '../config/mutations';
+// import queryConfigModule from '../config/queries/queries';
+// import { MUTATION_NAMES } from '../config/mutations';
 
 const { PORT, NODE_ENV }: ProcessEnv = process.env;
-
-console.log('-> neshtosi ->');
-console.log(queryConfigModule);
-console.log('<<< neshtosi');
 
 //const { name, age }: { name: string; age: number } = body.value
 
