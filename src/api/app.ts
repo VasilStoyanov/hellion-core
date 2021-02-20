@@ -1,17 +1,27 @@
 export interface ProcessEnv {
-  [key: string]: string | undefined
+  [key: string]: string | undefined;
 }
 
 import express from 'express';
-import { join } from 'path';
-import { ApolloServer } from 'apollo-server-express';
-import { fileLoader, mergeResolvers, mergeTypes } from 'merge-graphql-schemas';
-import handleError from './helpers/errorsMapper';
-import defaultObserver from './helpers/defaultObserver';
+// import { join } from 'path';
+// import { ApolloServer } from 'apollo-server-express';
+// import { fileLoader, mergeResolvers, mergeTypes } from 'merge-graphql-schemas';
+// import handleError from './helpers/errorsMapper';
+// import defaultObserver from './helpers/defaultObserver';
 // import queryConfigModule from '../config/queries/queries';
 // import { MUTATION_NAMES } from '../config/mutations';
 
 const { PORT, NODE_ENV }: ProcessEnv = process.env;
+
+const server = express();
+
+server.use('/_healthcheck', (_req, res) => {
+  res.status(200).json({ uptime: process.uptime() });
+});
+
+server.listen(4004, () => {
+  console.log('Running at localhost:4004');
+});
 
 //const { name, age }: { name: string; age: number } = body.value
 
@@ -93,7 +103,7 @@ const { PORT, NODE_ENV }: ProcessEnv = process.env;
 
 //   app.all("*", (req, res) => {
 //     res.send(`
-//     <a 
+//     <a
 //     style="padding: 20px; background-color: cyan; margin: 0 0 50% 45%;"
 //     href="/graphql">GraphQL Playground</a>
 //     `);
