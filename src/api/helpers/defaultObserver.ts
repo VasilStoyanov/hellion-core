@@ -1,16 +1,27 @@
 import handleError from './errorsMapper';
-import QUERY_NAMES from '../../config/queries/queries';
-const { MUTATION_NAMES } = require("../../config/mutations/");
+import { QUERY_NAMES } from '../../config/queries/queries';
+import { ErrorParamsType, ErrorResponseType } from './errorsMapper';
+// import MUTATION_NAMES "../../config/mutations/";
 
-const NOT_IMPLEMENTED_ERR_MSG = ({ name }) => `${name} not implemented`;
-const isproduction = process.env.NODE_ENV === "production";
+const NOT_IMPLEMENTED_ERR_MSG = ({ name }: { name: string }): string => `${name} not implemented`;
+const isproduction = process.env.NODE_ENV === 'production';
 
-module.exports = ({ resolve, reject, name }) => {
-  const queryType = Boolean(QUERY_NAMES[name])
-    ? "Query"
-    : Boolean(MUTATION_NAMES[name])
-    ? "Mutation"
-    : undefined;
+interface DefaultObserverType<T> {
+  next: (data: T) => Promise<T>;
+  error: (error: ErrorParamsType) => ErrorResponseType;
+  complete: () => void;
+}
+
+export default <T>({
+  resolve,
+  reject,
+  name,
+}: {
+  resolve: (data: T) => Promise<T>;
+  reject: (result: ErrorResponseType) => Promise<void>;
+  name: string;
+}): DefaultObserverType<T> => {
+  const queryType = Boolean(QUERY_NAMES[name]) ? 'Query' : Boolean(MUTATION_NAMES[name]) ? 'Mutation' : undefined;
 
   if (!queryType) {
     throw new Error(NOT_IMPLEMENTED_ERR_MSG({ name }));
@@ -18,7 +29,9 @@ module.exports = ({ resolve, reject, name }) => {
 
   return {
     next: (data) => resolve(data),
-    error: (error) => reject(handleError({ error })),
+    error: (error) => {
+      reject(handleError(error));
+    },
     complete: () => {
       if (isproduction) return;
       console.info(`${queryType} ${name} completed`);
