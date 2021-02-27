@@ -3,13 +3,17 @@ export interface ProcessEnv {
 }
 
 import express from 'express';
-// import { join } from 'path';
-// import { ApolloServer } from 'apollo-server-express';
-// import { fileLoader, mergeResolvers, mergeTypes } from 'merge-graphql-schemas';
-// import handleError from './helpers/errorsMapper';
-// import defaultObserver from './helpers/defaultObserver';
+import { join } from 'path';
+import { ApolloServer } from 'apollo-server-express';
+import { fileLoader, mergeResolvers, mergeTypes } from 'merge-graphql-schemas';
+import handleError from './helpers/errorsMapper';
+import defaultObserver from './helpers/defaultObserver';
 // import queryConfigModule from '../config/queries/queries';
 // import { MUTATION_NAMES } from '../config/mutations';
+
+// console.log('-> handleError ->');
+// console.log(defaultObserver);
+// console.log('<<< handleError');
 
 const { PORT, NODE_ENV }: ProcessEnv = process.env;
 

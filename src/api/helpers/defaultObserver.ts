@@ -1,5 +1,5 @@
-const handleError = require("./errorsMapper");
-const { QUERY_NAMES } = require("../../config/queries/queries");
+import handleError from './errorsMapper';
+import QUERY_NAMES from '../../config/queries/queries';
 const { MUTATION_NAMES } = require("../../config/mutations/");
 
 const NOT_IMPLEMENTED_ERR_MSG = ({ name }) => `${name} not implemented`;

@@ -1,11 +1,8 @@
-import queryRequestMiddleware from './query-request-middleware';
+import RequestOptions from './query-request-middleware';
 import UserRoles from '../user-roles';
 
-console.log(queryRequestMiddleware);
-console.log(UserRoles)
-
 export interface QueryConfigType {
-  [K: string]: string | object
+  [K: string]: string | Record<string, number[]>
 }
 
 const queryConfig: QueryConfigType = {
@@ -18,19 +15,19 @@ const queryConfig: QueryConfigType = {
   GET_USERS: "GET_USERS",
   GET_USER_BY_FIELD: "GET_USER_BY_FIELD",
   GET_USER_ROLES: {
-    [queryRequestMiddleware.AUTHORIZE_FOR_ROLES]: [UserRoles.ADMIN, UserRoles.MODERATOR],
+    [AUTHORIZE_FOR_ROLES]: [UserRoles.ADMIN, UserRoles.MODERATOR],
   },
   GET_SUBSCRIBED_USERS: {}
 };
 
-const neshtosi = Object.keys(queryConfig).reduce((acc: object, key: string) => ({
+const QUERY_NAMES = Object.keys(queryConfig).reduce((acc: Record<string, string>, key: string) => ({
   ...acc,
   [key]: key,
 }),
   {})
 
-const queryConfigModule: Record<string, object> = {
-  QUERY_NAMES: neshtosi,
+const queryConfigModule: Record<string, Record<string, string> | QueryConfigType> = {
+  QUERY_NAMES,
   queryOptions: queryConfig,
 };
 

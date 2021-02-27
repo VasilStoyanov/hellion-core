@@ -3,5 +3,4 @@ enum commonRequestMiddleware {
   AUTHORIZE_FOR_ROLES,
 }
 
-
 export default commonRequestMiddleware
