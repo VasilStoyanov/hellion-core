@@ -1,7 +1,10 @@
 import MutationRequestOptions from './mutation-request-middleware';
-import UserRoles from '../user-roles';
 
-const mutationOptions = {
+export type MutationOptionsType = {
+  [K: string]: Record<string, never> | Record<string, boolean>
+}
+
+const mutationOptions: MutationOptionsType = {
   // USER
   CREATE_USER: {},
   USER_LOGIN: {},

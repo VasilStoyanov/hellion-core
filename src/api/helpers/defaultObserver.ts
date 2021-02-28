@@ -1,7 +1,7 @@
 import handleError from './errorsMapper';
 import { QUERY_NAMES } from '../../config/queries/queries';
-import { ErrorParamsType, ErrorResponseType } from './errorsMapper';
 import { MUTATION_NAMES } from '../../config/mutations/';
+import { ErrorParamsType, ErrorResponseType } from '../../types/error-types/error-types';
 
 const NOT_IMPLEMENTED_ERR_MSG = ({ name }: { name: string }): string => `${name} not implemented`;
 const isproduction = process.env.NODE_ENV === 'production';

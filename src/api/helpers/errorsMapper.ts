@@ -1,5 +1,6 @@
 import { ApolloError, AuthenticationError, ForbiddenError, UserInputError } from 'apollo-server-express';
 import ErrorTypes from '../../config/errorTypes';
+import { ErrorMapperParams, ErrorParamsType, ErrorResponseType } from '../../types/error-types/error-types';
 
 const CONFLICT_CODE = 'CONFLICT';
 const NOT_FOUND_CODE = 'NOT_FOUND';
@@ -21,14 +22,6 @@ const genericErrorConfig: Record<string, ({ errorMessage }: ErrorMapperParams) =
   // Not implemented
   [ErrorTypes.NOT_IMPLEMENTED_ERROR]: ({ errorMessage }) => new ApolloError(errorMessage),
 };
-
-export type ErrorParamsType = { errorType: string; errorMessage: string };
-
-export interface ErrorMapperParams {
-  errorMessage: string;
-}
-
-export type ErrorResponseType = AuthenticationError | ForbiddenError | UserInputError | ApolloError;
 
 export default ({ errorType = '', errorMessage = '' }: ErrorParamsType): ErrorResponseType => {
   const errorHandler = genericErrorConfig[errorType];
