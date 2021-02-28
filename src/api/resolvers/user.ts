@@ -1,11 +1,7 @@
-module.exports = {
+export default {
   /* <<< Query RESOLVERS >>> */
 
-  queryResolvers: ({
-    handleQuery,
-    handleError,
-    QUERY_NAMES: { GET_USER_ROLES },
-  }) => ({
+  queryResolvers: ({ handleQuery, handleError, QUERY_NAMES: { GET_USER_ROLES } }) => ({
     userRoles: (rootQuery, queryArguments, { token }) =>
       handleQuery({
         queryName: GET_USER_ROLES,
@@ -71,10 +67,7 @@ module.exports = {
         params: { restorationEmail },
       }).catch((error) => handleError({ error })),
 
-    confirmResetPassword: (
-      rootQuery,
-      { restorePasswordUUID = "", newPassword = "" }
-    ) =>
+    confirmResetPassword: (rootQuery, { restorePasswordUUID = '', newPassword = '' }) =>
       handleMutation({
         mutationName: CONFIRM_RESET_USER_PASSWORD,
         params: { restorePasswordUUID, newPassword },

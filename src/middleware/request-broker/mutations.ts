@@ -1,13 +1,13 @@
-const { forkJoin, merge } = require("rxjs");
-const { mergeMap } = require("rxjs/operators");
-const { mutationOptions } = require("../../config/mutations");
+import { forkJoin, merge } from 'rxjs';
+import { mergeMap } from 'rxjs/operators';
+import { mutationOptions } from '../../config/mutations';
 
-module.exports = new Promise(async (resolve) => {
-  const { executeMutation } = await require("../../service");
-  const authentication = await require("../authentication");
-  const authorization = await require("../authorization");
+export default new Promise(async (resolve) => {
+  const { executeMutation } = await require('../../service');
+  const authentication = await require('../authentication');
+  const authorization = await require('../authorization');
 
-  const mutationRequestHandler = ({ mutationName = "", params = {} }) => {
+  const mutationRequestHandler = ({ mutationName = '', params = {} }) => {
     const mutationRequestOptions = mutationOptions[mutationName];
     const { token, ...rest } = params;
 
@@ -32,8 +32,8 @@ module.exports = new Promise(async (resolve) => {
               }),
               ...rest,
             },
-          })
-        )
+          }),
+        ),
       )
       .toPromise();
   };

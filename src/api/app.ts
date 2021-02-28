@@ -8,12 +8,8 @@ import { ApolloServer } from 'apollo-server-express';
 import { fileLoader, mergeResolvers, mergeTypes } from 'merge-graphql-schemas';
 import handleError from './helpers/errorsMapper';
 import defaultObserver from './helpers/defaultObserver';
-// import queryConfigModule from '../config/queries/queries';
-// import { MUTATION_NAMES } from '../config/mutations';
-
-// console.log('-> handleError ->');
-// console.log(defaultObserver);
-// console.log('<<< handleError');
+import { QUERY_NAMES } from '../config/queries/queries';
+import { MUTATION_NAMES } from '../config/mutations';
 
 const { PORT, NODE_ENV }: ProcessEnv = process.env;
 
@@ -26,8 +22,6 @@ server.use('/_healthcheck', (_req, res) => {
 server.listen(4004, () => {
   console.log('Running at localhost:4004');
 });
-
-//const { name, age }: { name: string; age: number } = body.value
 
 // (async () => {
 

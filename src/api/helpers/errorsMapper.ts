@@ -4,7 +4,7 @@ import ErrorTypes from '../../config/errorTypes';
 const CONFLICT_CODE = 'CONFLICT';
 const NOT_FOUND_CODE = 'NOT_FOUND';
 
-const genericErrorConfig: Record<string, ({ errorMessage }: ErrorMapperParams) => GenericErrorConfigResult> = {
+const genericErrorConfig: Record<string, ({ errorMessage }: ErrorMapperParams) => ErrorResponseType> = {
   // Auth
   [ErrorTypes.AUTHENTICATION_ERROR]: ({ errorMessage }) => new AuthenticationError(errorMessage),
   [ErrorTypes.AUTHORIZATION_ERROR]: ({ errorMessage }) => new ForbiddenError(errorMessage),
@@ -28,7 +28,7 @@ export interface ErrorMapperParams {
   errorMessage: string;
 }
 
-export type ErrorResponseType = AuthenticationError | ForbiddenError | UserInputError | ApolloError | void;
+export type ErrorResponseType = AuthenticationError | ForbiddenError | UserInputError | ApolloError;
 
 export default ({ errorType = '', errorMessage = '' }: ErrorParamsType): ErrorResponseType => {
   const errorHandler = genericErrorConfig[errorType];

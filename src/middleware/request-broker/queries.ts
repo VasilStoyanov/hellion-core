@@ -1,13 +1,13 @@
-const { forkJoin, merge } = require("rxjs");
-const { mergeMap } = require("rxjs/operators");
-const { queryOptions } = require("../../config/queries");
+import { forkJoin, merge } from 'rxjs';
+import { mergeMap } from 'rxjs/operators';
+import { queryOptions } from '../../config/queries';
 
-module.exports = new Promise(async (resolve) => {
-  const { executeQuery } = await require("../../service");
-  const authentication = await require("../authentication");
-  const authorization = await require("../authorization");
+export default new Promise(async (resolve) => {
+  const { executeQuery } = await require('../../service');
+  const authentication = await require('../authentication');
+  const authorization = await require('../authorization');
 
-  const queryRequestHandler = ({ queryName = "", params = {} }) => {
+  const queryRequestHandler = ({ queryName = '', params = {} }) => {
     const queryRequestOptions = queryOptions[queryName];
     const { token, ...rest } = params;
 
@@ -32,8 +32,8 @@ module.exports = new Promise(async (resolve) => {
               }),
               ...rest,
             },
-          })
-        )
+          }),
+        ),
       )
       .toPromise();
   };

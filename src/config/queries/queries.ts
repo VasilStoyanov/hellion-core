@@ -2,7 +2,7 @@ import RequestOptions from './query-request-middleware';
 import UserRoles from '../user-roles';
 
 export interface QueryConfigType {
-  [K: string]: string | Record<string, string[]>;
+  readonly [K: string]: string | Record<string, string[]>;
 }
 
 export const queryOptions: QueryConfigType = {
@@ -20,10 +20,12 @@ export const queryOptions: QueryConfigType = {
   GET_SUBSCRIBED_USERS: {},
 };
 
-export const QUERY_NAMES = Object.keys(queryOptions).reduce(
-  (acc: Record<string, string>, key: string) => ({
-    ...acc,
-    [key]: key,
-  }),
-  {},
+export const QUERY_NAMES: Readonly<Record<string, string>> = Object.freeze(
+  Object.keys(queryOptions).reduce(
+    (acc: Record<string, string>, key: string) => ({
+      ...acc,
+      [key]: key,
+    }),
+    {},
+  ),
 );
